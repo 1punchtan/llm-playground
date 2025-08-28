@@ -109,13 +109,13 @@ for i in range(10):
     print(f"GPT:\n{gpt_next}\n")
     gpt_messages.append(gpt_next)
     
-    if gpt_next.endsWith(ender):
+    if gpt_next.endswith(ender):
         break;
     
     claude_next = call_claude()
     print(f"Claude:\n{claude_next}\n")
     claude_messages.append(claude_next)
     
-    if gpt_next.endsWith(ender):
+    if gpt_next.endswith(ender):
         break;
 
