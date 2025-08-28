@@ -6,9 +6,6 @@ from openai import OpenAI
 import anthropic
 
 # import for google
-# in rare cases, this seems to give an error on some systems, or even crashes the kernel
-# If this happens to you, simply ignore this cell - I give an alternative approach for using Gemini later
-
 import google.generativeai
 
 # Load environment variables in a file called .env
@@ -35,22 +32,24 @@ else:
     print("Google API Key not set")
 
 
-# Connect to OpenAI, Anthropic
+# Connect to OpenAI, Anthropic, and Gemini
 
 openai = OpenAI()
-
 claude = anthropic.Anthropic()
-
-
-# This is the set up code for Gemini
-# Having problems with Google Gemini setup? Then just ignore this cell; when we use Gemini, I'll give you an alternative that bypasses this library altogether
-
 google.generativeai.configure()
+
+# Set topic to discuss
 
 topic = "pineapple on pizza"
 
+
+# Specify models we want to use
+
 gpt_model = "gpt-4.1-mini"
 claude_model = "claude-3-5-haiku-latest"
+
+
+# Set system prompts
 
 gpt_system = "You are a chatbot who does not support the idea of " + topic + ". \
     You are to listen and understand the points the other person says, and then reply with truthful statements \
@@ -61,6 +60,10 @@ claude_system = "You are a chatbot who supports the idea of " + topic + ". \
     You are to listen and understand the points the other person says, and then reply with truthful statements \
     that support your idea. Do your best to keep a productive conversation going. If you cannot present any other \
     compelling case, admit it and say that you agree with the other person."
+
+
+# Core functions calling the LLMs
+# We set the system context, and feed the conversation thus far in messages
 
 def call_gpt():
     messages = [{"role": "system", "content": gpt_system}]
@@ -87,11 +90,16 @@ def call_claude():
     )
     return message.content[0].text
 
+# (Fake) starting messages
+
 gpt_messages = ["Hi there"]
 claude_messages = ["Hi"]
 
 print(f"GPT:\n{gpt_messages[0]}\n")
 print(f"Claude:\n{claude_messages[0]}\n")
+
+
+# Conversation loop
 
 for i in range(10):
     gpt_next = call_gpt()
