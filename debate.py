@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 import anthropic
-from IPython.display import Markdown, display, update_display
 
 # import for google
 # in rare cases, this seems to give an error on some systems, or even crashes the kernel
