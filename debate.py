@@ -116,6 +116,6 @@ for i in range(10):
     print(f"Claude:\n{claude_next}\n")
     claude_messages.append(claude_next)
     
-    if gpt_next.endswith(ender):
+    if claude_next.endswith(ender):
         break;
 
