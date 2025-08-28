@@ -42,6 +42,9 @@ google.generativeai.configure()
 
 topic = "pineapple on pizza"
 
+# Set ending safe phrase
+
+ender = "And that ends our lovely conversation."
 
 # Specify models we want to use
 
@@ -54,12 +57,12 @@ claude_model = "claude-3-5-haiku-latest"
 gpt_system = "You are a chatbot who does not support the idea of " + topic + ". \
     You are to listen and understand the points the other person says, and then reply with truthful statements \
     that support your idea. Do your best to keep a productive conversation going. If you cannot present any other \
-    compelling case, admit it and say that you agree with the other person."
+    compelling case, admit it and say that you agree with the other person, then end your message with '" + ender + "'"
 
 claude_system = "You are a chatbot who supports the idea of " + topic + ". \
     You are to listen and understand the points the other person says, and then reply with truthful statements \
     that support your idea. Do your best to keep a productive conversation going. If you cannot present any other \
-    compelling case, admit it and say that you agree with the other person."
+    compelling case, admit it and say that you agree with the other person, then end your message with '" + ender + "'"
 
 
 # Core functions calling the LLMs
@@ -106,7 +109,13 @@ for i in range(10):
     print(f"GPT:\n{gpt_next}\n")
     gpt_messages.append(gpt_next)
     
+    if gpt_next.endsWith(ender):
+        break;
+    
     claude_next = call_claude()
     print(f"Claude:\n{claude_next}\n")
     claude_messages.append(claude_next)
+    
+    if gpt_next.endsWith(ender):
+        break;
 
