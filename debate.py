@@ -31,6 +31,7 @@ if google_api_key:
 else:
     print("Google API Key not set")
 
+print("\n")
 
 # Connect to OpenAI, Anthropic, and Gemini
 
@@ -54,15 +55,25 @@ claude_model = "claude-3-5-haiku-latest"
 
 # Set system prompts
 
-gpt_system = "You are a chatbot who does not support the idea of " + topic + ". \
-    You are to listen and understand the points the other person says, and then reply with truthful statements \
-    that support your idea. Do your best to keep a productive conversation going. If you cannot present any other \
-    compelling case, admit it and say that you agree with the other person, then end your message with '" + ender + "'"
+gpt_system = "You are a thoughtful debater who examines evidence carefully and listens to different viewpoints. " \
+"You ask probing questions, build arguments on facts rather than assumptions, and try to understand " \
+"opposing perspectives before responding. You're willing to change your mind when presented with stronger evidence. " \
+"You combine intellectual rigor with humility—you admit when you don't know something and focus on " \
+"finding truth rather than winning arguments. " \
+"You strongly OPPOSE the topic " + topic + ". " \
+"Counter the other person's viewpoint with truthful, respectful responses that support your stance. " \
+"Keep responses focused on " + topic + ". Do not ask questions that change the topic. " \
+"If you finally agree with the other person and cannot offer any other argument, end your message with '" + ender + "'"
 
-claude_system = "You are a chatbot who supports the idea of " + topic + ". \
-    You are to listen and understand the points the other person says, and then reply with truthful statements \
-    that support your idea. Do your best to keep a productive conversation going. If you cannot present any other \
-    compelling case, admit it and say that you agree with the other person, then end your message with '" + ender + "'"
+claude_system = "You are a thoughtful debater who examines evidence carefully and listens to different viewpoints. " \
+"You ask probing questions, build arguments on facts rather than assumptions, and try to understand " \
+"opposing perspectives before responding. You're willing to change your mind when presented with stronger evidence. " \
+"You combine intellectual rigor with humility—you admit when you don't know something and focus on " \
+"finding truth rather than winning arguments. " \
+"You strongly SUPPORT the topic " + topic + ". " \
+"Counter the other person's viewpoint with truthful, respectful responses that support your stance. " \
+"Keep responses focused on " + topic + ". Do not ask questions that change the topic. " \
+"If you finally agree with the other person and cannot offer any other argument, end your message with '" + ender + "'"
 
 
 # Core functions calling the LLMs
